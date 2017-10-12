@@ -17,8 +17,7 @@ class CreatePresencesTable extends Migration
             $table->increments('id');
             $table->integer('room_id');
             $table->date('current_date');
-            $table->time('entrace');
-            $table->time('exit');
+            $table->time('moviment');
             $table->timestamps();
         });
     }
