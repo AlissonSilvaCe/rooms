@@ -15,6 +15,7 @@ class CreatePresencesTable extends Migration
     {
         Schema::create('presences', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id');
             $table->integer('room_id');
             $table->date('current_date');
             $table->time('moviment');
