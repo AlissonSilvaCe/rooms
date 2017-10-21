@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 use App\Models\Presence;
-use App\Models\Rooms;
 
 class PresenceController extends Controller
 {
+    /**
+     * Store a new user.
+     *
+     * @param  Request  $request
+     * @return Response
+     */
     public function store(Request $request)
     {
          if (!empty($request->room_id)) {
@@ -17,7 +22,7 @@ class PresenceController extends Controller
 
                 return response()->json([
                                           'status' => 1,
-                                         'message' => 'presence create successfully'
+                                          'message' => 'presence create successfully'
                 ]);
         }else{
 
@@ -30,8 +35,19 @@ class PresenceController extends Controller
 
     public function list()
     {
-        $rooms = Rooms::all();    
+        $presences = Presence::where('current_date',date('Y-m-d'))
+                           ->orderBy('room_id','ASC')
+                           ->get();    
 
-        return response()->json($rooms);
+        if(isset($presences))
+        {
+            return response()->json($presences);
+        }else{
+
+            return response()->json([
+                                        'status' => 400,
+                                        'message' => 'not presences registred a day!'
+            ]);   
+        }
     }
 }

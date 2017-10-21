@@ -4,10 +4,14 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-
-$router->post('/room/presence', 'PresenceController@create');
+//cadastra a presenca das salas
+$router->post('/presence/create', 'PresenceController@store');
 
 //devolve a lista de sala
-$router->get('/room/list', 'PresenceController@list');
+$router->get('/presence/list', 'PresenceController@list');
 
-//devolve o usuario logado
+//cadastra um novo usuario logado
+$router->post('/user/create', 'UserController@store');
+
+//retorna a lista de usuarios
+$router->get('/user/list', 'UserController@list');
